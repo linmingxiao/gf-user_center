@@ -3,6 +3,7 @@ package cf
 import (
 	"flag"
 	"github.com/qinchende/gofast/connx/gform"
+	"github.com/qinchende/gofast/connx/gfrds"
 	"github.com/qinchende/gofast/fst"
 	"github.com/qinchende/gofast/logx"
 	"github.com/qinchende/gofast/sdx"
@@ -13,10 +14,12 @@ type AppConfigEntity struct {
 	WebServerCnf   fst.GfConfig     `v:"required"`
 	RedisSessCnf   sdx.RedisSessCnf `v:"required"`
 	MysqlGoZeroCnf gform.ConnCnf    `v:"required"`
+
+	RedisDBListCnf gfrds.RedisDBListCnf
 }
 
 var AppCnf AppConfigEntity
-var cnfFile = flag.String("f", "cf/env.yaml", "-f env.[yaml|yml|json]")
+var cnfFile = flag.String("f", "/Users/lmx/go/pkg/mod/github.com/linmx/gf-user_center/web-demo/cf/env.yaml", "-f env.[yaml|yml|json]")
 
 func MustAppConfig() {
 	flag.Parse()
@@ -25,5 +28,6 @@ func MustAppConfig() {
 	logx.Info("Hello " + AppCnf.WebServerCnf.AppName + ", config all ready.")
 
 	initRedisForSession()
+	initGoRedis()
 	initMysql()
 }

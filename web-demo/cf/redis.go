@@ -1,15 +1,23 @@
 package cf
 
 import (
+	"github.com/qinchende/gofast/connx/gfrds"
 	"github.com/qinchende/gofast/sdx"
 )
 
-//var RedisA *gfrds.GfRedis
+var R61501 *gfrds.GfRedis
+var R61508 *gfrds.GfRedis
 
 //
-//func initGoRedis() {
-//	RedisA = gfrds.NewGoRedis(&AppCnf.SdxSessCnf.RedisConnCnf)
-//}
+func initGoRedis() {
+	if &AppCnf.RedisDBListCnf.R61501 != nil {
+		R61501 = gfrds.NewGoRedis(&AppCnf.RedisDBListCnf.R61501)
+	}
+	if &AppCnf.RedisDBListCnf.R61508 != nil {
+		R61508 = gfrds.NewGoRedis(&AppCnf.RedisDBListCnf.R61508)
+	}
+}
+
 //
 //func tryGoRedis() {
 //	pong, err := RedisA.Ping()
